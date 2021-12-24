@@ -27,7 +27,7 @@ export default function Wallet() {
     };
     const handleSale = (e) => {
         e.preventDefault()
-        if (price == 0) {
+        if (price === 0) {
             swal('Error', 'Campo vacio!!', 'error')
             return 0;
         }
