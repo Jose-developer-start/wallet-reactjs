@@ -1,0 +1,70 @@
+.wallet__title{
+    color: rgb(180, 189, 211);
+}
+.wallet__price_btc{
+    font-family: 'Poppins',sans-serif;
+    font-size: 18px;
+    margin: 20px 0;
+}
+.form__input{
+    padding: 0 15px;
+    height: 65px;
+    background-color: #FFF;
+    border-radius: 15px;
+}
+
+.form__title-USD{
+    color: #f1f1ff;
+    font-size: 20px;
+    font-family: 'Poppins',sans-serif;
+    font-weight: 500;
+    background-color: rgb(24, 24, 51);
+    display: inline-block;
+    border-radius: 10px;
+    padding: 7px 15px;
+}
+.form__title-BTC{
+
+    color: #f1f1ff;
+    font-size: 20px;
+    font-family: 'Poppins',sans-serif;
+    font-weight: 700;
+    background-color: rgb(149, 168, 43);
+    display: inline-block;
+    border-radius: 10px;
+    padding: 7px 15px;
+}
+.form__usd{
+    height: 100%;
+    background-color: none;
+    border:none;
+    text-align: right;
+    font-size: 2.1rem;
+    outline: none;
+}
+.form__usd:active{
+    border: none;
+}
+.form__usd:focus{
+    border: none;
+}
+.btn{
+    height:55px;
+    font-size: 20px;
+    font-family: 'Poppins',sans-serif;
+    border-radius: 15px;
+}
+hr{
+    color: #f1f1ff;
+}
+.wallet__content{
+    text-align: center;
+    display: block;
+    font-size: 20px;
+    font-family: 'Poppins',sans-serif;
+    font-weight: 500;
+    margin: 20px 0;
+}
+.satoshig{
+    color: #212121;
+}

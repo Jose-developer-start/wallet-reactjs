@@ -1,4 +1,5 @@
 import axios from 'axios';
+import "./Wallet.css"
 import React, { useEffect, useState } from 'react'
 import swal from 'sweetalert';
 export default function Wallet() {
@@ -72,33 +73,33 @@ export default function Wallet() {
 
     if (!coins.length) { return <div className="alert alert-warning">Cargando...</div> }
     return (
+        
         <div>
-            <div className="container my-5">
-                <div className="row">
-                    <div className="col-sm-12 col-md-6">
-                        <div className="card">
-                            <div className="card-body">
-                                <h3 className="text-dark">BTC:$ {coins[0].current_price.toLocaleString()}</h3>
-                                <h4 className="text-muted">BTC A USD: {satoshig.toFixed(8)} a {satoshigToUSD.toFixed(2)}</h4>
-                            </div>
-                        </div>
+            <div className="container">
+                <h1 className="text-center wallet__title my-4">Convertir</h1>
+                <span className="text-center wallet__content">Disponible ${amount.toLocaleString()} USD</span>
+                <form onSubmit={handleSale} action="">
+                    <div className="form__input d-flex justify-content-center align-items-center">
+                        <span className="form__title-USD">USD</span>
+                        <input min="0.00" step="any" value={price} onChange={(e) => setPrice(e.target.value)} type="number" className="form-control form__usd" />
                     </div>
-                    <div className="col-sm-12 col-md-6">
-                        <div className="card">
-                            <div className="card-body">
-                                <h3 className="text-dark">USD:$ {amount.toLocaleString()}</h3>
-                            </div>
+                    <button type="submit" className="btn btn-info my-4 btn-block">Convertir de USD a BTC</button>
+                </form>
+                <div className="text-center wallet__price_btc">1 BTS equivale aprox.${coins[0].current_price.toLocaleString()}</div>
+                <hr />
+                <span className="text-center wallet__content">Quiero recibir</span>
+                <div className="form__input d-flex justify-content-center align-items-center">
+                        <span className="form__title-BTC">BTC</span>
+                        <div className="form-control form__usd satoshig">
+                            {satoshig.toFixed(8)}
                         </div>
-
-                    </div>
                 </div>
+                <span className="wallet__content">Equivale a ${satoshigToUSD.toFixed(2)} USD</span>
                 <div className="d-flex flex-column justify-content-center my-4">
-                    <form onSubmit={handleSale} action="">
-                        <input min="0.00" step="any" value={price} onChange={(e) => setPrice(e.target.value)} type="number" className="form-control" />
-                        <button type="submit" className="btn btn-info my-2">Convertir de USD a BTC</button>
-                    </form>
+                    
                     <button onClick={handleBay} className="btn btn-success my-3">Convertir de BTC a USD</button>
                 </div>
+            
             </div>
         </div>
     )
