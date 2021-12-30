@@ -10,6 +10,7 @@ export default function Wallet() {
     const [satoshig, setSatoshig] = useState(0);
     const [satoshigToUSD, setSatoshigToUSD] = useState(0);
     const [current_price_btc, setCurrent_price_btc] = useState(0);
+    const [time,setTime] = useState(1);
     const fetchApi = () => {
         axios
             .get(
@@ -57,23 +58,26 @@ export default function Wallet() {
 
     useEffect(() => {
         setInterval(() => {
-            fetchApi();
             //Conversion de Satoshig a USD para mostrar al usuario
             setSatoshigToUSD(sessionStorage.getItem('satoshig') * sessionStorage.getItem('price_btc'))
-        }, 10000)
+        }, 1000);
+
     }, []);
     //Cap session satoshig conversation
     sessionStorage.setItem('satoshig', satoshig);
 
-    const ws = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@kline_1m');
-
-    ws.onmessage = (e)=>{
-        console.log(e.x)
-    }
+    setTimeout(()=>{
+        if(time < 60){
+            setTime( time + 1)
+        }else{
+            fetchApi();
+            setTime(1);
+        }
+    },1000)
 
     if (!coins.length) { return <div className="alert alert-warning">Cargando...</div> }
     return (
-        
+
         <div>
             <div className="container">
                 <h1 className="text-center wallet__title my-4">Convertir</h1>
@@ -81,25 +85,26 @@ export default function Wallet() {
                 <form onSubmit={handleSale} action="">
                     <div className="form__input d-flex justify-content-center align-items-center">
                         <span className="form__title-USD">USD</span>
-                        <input min="0.00" step="any" value={price} onChange={(e) => setPrice(e.target.value)} type="number" className="form-control form__usd" />
+                        <input min="0.00" step="any" placeholder="$0.00" value={price} onChange={(e) => setPrice(e.target.value)} type="number" className="form-control form__usd" />
                     </div>
                     <button type="submit" className="btn btn-info my-4 btn-block">Convertir de USD a BTC</button>
                 </form>
                 <div className="text-center wallet__price_btc">1 BTS equivale aprox.${coins[0].current_price.toLocaleString()}</div>
                 <hr />
+                <span className="text-center wallet__content"><i className="uil uil-clock clock__icon"></i>: {time}s</span>
                 <span className="text-center wallet__content">Quiero recibir</span>
                 <div className="form__input d-flex justify-content-center align-items-center">
-                        <span className="form__title-BTC">BTC</span>
-                        <div className="form-control form__usd satoshig">
-                            {satoshig.toFixed(8)}
-                        </div>
+                    <span className="form__title-BTC">BTC</span>
+                    <div className="form-control form__usd satoshig">
+                        {satoshig.toFixed(8)}
+                    </div>
                 </div>
                 <span className="wallet__content">Equivale a ${satoshigToUSD.toFixed(2)} USD</span>
                 <div className="d-flex flex-column justify-content-center my-4">
-                    
+
                     <button onClick={handleBay} className="btn btn-success my-3">Convertir de BTC a USD</button>
                 </div>
-            
+
             </div>
         </div>
     )
